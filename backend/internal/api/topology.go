@@ -67,7 +67,7 @@ func GetTopology(istioClient *istio.Client, k8sClient *k8s.Client) gin.HandlerFu
 				})
 				
 				// Create edges from VirtualService to destination services
-				if vs.Spec != nil && vs.Spec.Http != nil {
+				if vs.Spec.Http != nil {
 					for _, httpRoute := range vs.Spec.Http {
 						if httpRoute.Route != nil {
 							for _, dest := range httpRoute.Route {

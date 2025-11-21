@@ -10,7 +10,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/ivikasavnish/istio-ui/internal/istio"
 	"github.com/robfig/cron/v3"
-	networkingclient "istio.io/client-go/pkg/apis/networking/v1beta1"
 )
 
 // ActionType defines the type of scheduled action
