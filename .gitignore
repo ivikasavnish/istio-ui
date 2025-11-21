@@ -1,0 +1,52 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories (remove the comment below to include it)
+vendor/
+node_modules/
+
+# Go workspace file
+go.work
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+tmp/
+*.log
+
+# Frontend build
+frontend/build/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+
+# Backend binary
+backend/meshcontrol-server
+meshcontrol-server
+
+# Config files with secrets
+*.secret
+*.key
+!*.key.example

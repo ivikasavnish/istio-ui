@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: reviews-vs
+  namespace: default
+spec:
+  hosts:
+    - reviews.default.svc.cluster.local
+  http:
+    - match:
+        - headers:
+            user:
+              exact: "admin"
+      route:
+        - destination:
+            host: reviews.default.svc.cluster.local
+            subset: v2
+          weight: 100
+    - route:
+        - destination:
+            host: reviews.default.svc.cluster.local
+            subset: v1
+          weight: 80
+        - destination:
+            host: reviews.default.svc.cluster.local
+            subset: v2
+          weight: 20
