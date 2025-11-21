@@ -1,0 +1,31 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "meshcontrol.fullname" . }}
+  labels:
+    {{- include "meshcontrol.labels" . | nindent 4 }}
+rules:
+- apiGroups: [""]
+  resources: ["services", "pods", "namespaces"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["networking.istio.io"]
+  resources: ["virtualservices", "destinationrules", "gateways", "serviceentries"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["security.istio.io"]
+  resources: ["peerauthentications", "authorizationpolicies"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "meshcontrol.fullname" . }}
+  labels:
+    {{- include "meshcontrol.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "meshcontrol.fullname" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "meshcontrol.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}

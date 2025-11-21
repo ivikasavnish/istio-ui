@@ -1,0 +1,14 @@
+apiVersion: v2
+name: meshcontrol
+description: A Helm chart for MeshControl Center - Istio Management UI
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - istio
+  - service-mesh
+  - kubernetes
+  - traffic-management
+home: https://github.com/ivikasavnish/istio-ui
+maintainers:
+  - name: MeshControl Team
