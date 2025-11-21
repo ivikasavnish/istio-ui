@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
+// @ts-ignore - no type definitions available
 import dagre from 'cytoscape-dagre'
 import { servicesAPI, namespacesAPI } from '../services/api'
 
@@ -94,9 +95,8 @@ const TopologyGraph = () => {
         ],
         layout: {
           name: 'dagre',
-          rankDir: 'LR',
           padding: 20,
-        },
+        } as any,
       })
 
       // Add click handler

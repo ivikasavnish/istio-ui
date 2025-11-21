@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { virtualServicesAPI, destinationRulesAPI, namespacesAPI } from '../services/api'
+import { virtualServicesAPI, namespacesAPI } from '../services/api'
 import { Plus, Trash2 } from 'lucide-react'
 
 const TrafficManagement = () => {

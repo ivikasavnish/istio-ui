@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 	"sync"
-	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
@@ -115,7 +113,11 @@ func (s *Server) handleListServices(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	services := s.store.ListServiceCache()
+	services, err := s.store.ListServiceCache()
+	if err != nil {
+		respondError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
 	respondJSON(w, services)
 }
 

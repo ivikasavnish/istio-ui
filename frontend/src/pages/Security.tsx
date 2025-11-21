@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { peerAuthAPI, authzPolicyAPI, namespacesAPI } from '../services/api'
+import { peerAuthAPI, namespacesAPI } from '../services/api'
 import { Shield, Lock } from 'lucide-react'
 
 const Security = () => {

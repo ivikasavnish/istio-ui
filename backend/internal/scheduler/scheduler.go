@@ -9,6 +9,7 @@ import (
 	"github.com/robfig/cron/v3"
 	
 	"github.com/ivikasavnish/istio-ui/backend/internal/kube"
+	"github.com/ivikasavnish/istio-ui/backend/internal/models"
 	"github.com/ivikasavnish/istio-ui/backend/internal/storage"
 )
 
@@ -72,7 +73,7 @@ func (s *Scheduler) checkPendingActions() {
 }
 
 // executeAction executes a scheduled action
-func (s *Scheduler) executeAction(action *storage.ScheduledAction) error {
+func (s *Scheduler) executeAction(action *models.ScheduledAction) error {
 	ctx := context.Background()
 	
 	log.Printf("Executing action: %s (type: %s)", action.Name, action.ActionType)
@@ -137,7 +138,7 @@ func (s *Scheduler) captureSnapshot(config map[string]interface{}) error {
 		return err
 	}
 	
-	snapshot := &storage.Snapshot{
+	snapshot := &models.Snapshot{
 		Name:        name,
 		Description: description,
 		Config:      string(configJSON),

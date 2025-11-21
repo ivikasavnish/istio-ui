@@ -9,8 +9,9 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	corev1 "k8s.io/api/core/v1"
 	
 	istioclient "istio.io/client-go/pkg/clientset/versioned"
 )
@@ -73,8 +74,7 @@ func getKubeConfig() (*rest.Config, error) {
 
 // ListNamespaces lists all namespaces
 func (c *Client) ListNamespaces(ctx context.Context) ([]string, error) {
-	namespaces, err := c.Clientset.CoreV1().Namespaces().List(ctx, 
-		*new(rest.ListOptions))
+	namespaces, err := c.Clientset.CoreV1().Namespaces().List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -88,8 +88,7 @@ func (c *Client) ListNamespaces(ctx context.Context) ([]string, error) {
 
 // DiscoverServices discovers services in a namespace
 func (c *Client) DiscoverServices(ctx context.Context, namespace string) ([]ServiceInfo, error) {
-	services, err := c.Clientset.CoreV1().Services(namespace).List(ctx, 
-		*new(rest.ListOptions))
+	services, err := c.Clientset.CoreV1().Services(namespace).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +122,7 @@ type ServiceInfo struct {
 
 // GetPods gets pods in a namespace with optional label selector
 func (c *Client) GetPods(ctx context.Context, namespace string, labelSelector string) ([]PodInfo, error) {
-	listOpts := rest.ListOptions{}
+	listOpts := metav1.ListOptions{}
 	if labelSelector != "" {
 		listOpts.LabelSelector = labelSelector
 	}
@@ -157,10 +156,10 @@ type PodInfo struct {
 	Ready     bool              `json:"ready"`
 }
 
-func isPodReady(pod *rest.Pod) bool {
+func isPodReady(pod *corev1.Pod) bool {
 	for _, cond := range pod.Status.Conditions {
-		if cond.Type == rest.PodReady {
-			return cond.Status == rest.ConditionTrue
+		if cond.Type == corev1.PodReady {
+			return cond.Status == corev1.ConditionTrue
 		}
 	}
 	return false
