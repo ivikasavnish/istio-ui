@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - ENABLE_CORS=true
+      - LOG_LEVEL=info
+    volumes:
+      - ~/.kube/config:/root/.kube/config:ro
+    networks:
+      - meshcontrol
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+    depends_on:
+      - backend
+    networks:
+      - meshcontrol
+
+networks:
+  meshcontrol:
+    driver: bridge
