@@ -4,8 +4,18 @@
 
 ### Frontend
 - [ ] Update DataGrid `pageSize` prop to `initialState.pagination.pageSize` pattern (deprecated in v6+)
-  - Affected files: VirtualServices.js, DestinationRules.js, Gateways.js, AuthorizationPolicies.js, PeerAuthentications.js, ScheduledActions.js
+  - Affected files: VirtualServices.js, DestinationRules.js, Gateways.js, AuthorizationPolicies.js, PeerAuthentications.js, ScheduledActions.js, HelmManager.js
   - Impact: None (still works, but newer API is preferred)
+  - Priority: Low
+
+- [ ] Add JSON parsing error handling in HelmManager.js
+  - Lines: 82, 103 (handleSaveInstall, handleSaveUpgrade)
+  - Add try-catch blocks around JSON.parse for better user feedback
+  - Priority: Medium
+
+- [ ] Replace window.location.reload() with React state management in ContextSelector.js
+  - Line: 60
+  - Use state refresh instead of full page reload to preserve app state
   - Priority: Low
 
 ### Backend
@@ -13,6 +23,16 @@
   - Lines: 101, 131
   - Impact: Better debugging experience
   - Priority: Low
+
+- [ ] Extract actionConfig.Init into helper method in helm/manager.go
+  - Duplicated across 7 methods
+  - Reduces code duplication
+  - Priority: Low
+
+- [ ] Add chart path validation in helm/manager.go
+  - Lines: 105, 128 (InstallChart, UpgradeChart)
+  - Validate and sanitize chartPath to prevent directory traversal
+  - Priority: High (security consideration)
 
 ## Feature Enhancements
 
