@@ -12,6 +12,7 @@ import AuthorizationPolicies from './pages/AuthorizationPolicies';
 import PeerAuthentications from './pages/PeerAuthentications';
 import Topology from './pages/Topology';
 import ScheduledActions from './pages/ScheduledActions';
+import HelmManager from './pages/HelmManager';
 
 const theme = createTheme({
   palette: {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/peerauthentications" element={<PeerAuthentications />} />
             <Route path="/topology" element={<Topology />} />
             <Route path="/schedules" element={<ScheduledActions />} />
+            <Route path="/helm" element={<HelmManager />} />
           </Routes>
         </Layout>
       </Router>

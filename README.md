@@ -14,6 +14,9 @@ MeshControl Center is a full-stack application that provides an intuitive UI for
 - **YAML Preview**: Live YAML generation and editing for all Istio resources
 - **Scheduled Actions**: Time-based automation for traffic shifting, canary deployments, and more
 - **Form-based Configuration**: User-friendly forms with validation for all Istio resources
+- **Kubernetes Context Selector**: Switch between multiple Kubernetes clusters/contexts
+- **Namespace Filtering**: Filter resources by namespace for better organization
+- **Helm Manager**: Install, upgrade, and manage Helm releases with visual interface
 
 ### 🏗️ Architecture
 - **Backend**: Go-based REST API with native Kubernetes and Istio client libraries

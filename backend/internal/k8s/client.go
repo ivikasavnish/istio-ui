@@ -1,6 +1,7 @@
 package k8s
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -42,10 +43,9 @@ func getConfig() (*rest.Config, error) {
 	}
 
 	// Fall back to kubeconfig
-	kubeconfig := os.Getenv("KUBECONFIG")
-	if kubeconfig == "" {
-		home, _ := os.UserHomeDir()
-		kubeconfig = filepath.Join(home, ".kube", "config")
+	kubeconfig, err := GetKubeconfigPath()
+	if err != nil {
+		return nil, err
 	}
 
 	config, err = clientcmd.BuildConfigFromFlags("", kubeconfig)
@@ -54,4 +54,17 @@ func getConfig() (*rest.Config, error) {
 	}
 
 	return config, nil
+}
+
+// GetKubeconfigPath returns the path to the kubeconfig file
+func GetKubeconfigPath() (string, error) {
+	kubeconfig := os.Getenv("KUBECONFIG")
+	if kubeconfig == "" {
+		home, err := os.UserHomeDir()
+		if err != nil {
+			return "", fmt.Errorf("failed to get home directory: %w", err)
+		}
+		kubeconfig = filepath.Join(home, ".kube", "config")
+	}
+	return kubeconfig, nil
 }

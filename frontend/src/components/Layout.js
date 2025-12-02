@@ -21,6 +21,8 @@ import SecurityIcon from '@mui/icons-material/Security';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import GatewayIcon from '@mui/icons-material/Sensors';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import ContextSelector from './ContextSelector';
 
 const drawerWidth = 240;
 
@@ -33,6 +35,7 @@ const menuItems = [
   { text: 'Peer Authentications', icon: <SecurityIcon />, path: '/peerauthentications' },
   { text: 'Topology', icon: <AccountTreeIcon />, path: '/topology' },
   { text: 'Scheduled Actions', icon: <ScheduleIcon />, path: '/schedules' },
+  { text: 'Helm Manager', icon: <ExtensionIcon />, path: '/helm' },
 ];
 
 export default function Layout({ children }) {
@@ -87,9 +90,10 @@ export default function Layout({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             MeshControl Center
           </Typography>
+          <ContextSelector />
         </Toolbar>
       </AppBar>
       <Box

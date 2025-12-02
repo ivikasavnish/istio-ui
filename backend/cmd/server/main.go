@@ -111,6 +111,20 @@ func main() {
 
 		// Topology/Graph routes
 		v1.GET("/topology", api.GetTopology(istioClient, k8sClient))
+
+		// Context management routes
+		v1.GET("/contexts", api.GetContexts())
+		v1.GET("/contexts/current", api.GetCurrentContext())
+		v1.POST("/contexts/switch", api.SwitchContext())
+
+		// Helm management routes
+		v1.GET("/helm/releases", api.ListHelmReleases(k8sClient))
+		v1.GET("/helm/releases/:name", api.GetHelmRelease(k8sClient))
+		v1.POST("/helm/releases", api.InstallHelmChart(k8sClient))
+		v1.PUT("/helm/releases/:name", api.UpgradeHelmRelease(k8sClient))
+		v1.DELETE("/helm/releases/:name", api.UninstallHelmRelease(k8sClient))
+		v1.POST("/helm/releases/:name/rollback", api.RollbackHelmRelease(k8sClient))
+		v1.GET("/helm/releases/:name/history", api.GetHelmReleaseHistory(k8sClient))
 	}
 
 	// Start server
